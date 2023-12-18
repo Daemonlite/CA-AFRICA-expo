@@ -1,36 +1,40 @@
 import React from 'react'
-import { Text,SafeAreaView, View,ScrollView } from 'react-native'
-import { useEffect,useState} from 'react'
+import { Text, SafeAreaView, ScrollView } from 'react-native'
+import { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import axios from 'axios'
-const Home = () => {
-    const [data,setData] = useState([])
-    const navigation = useNavigation()
-    useEffect(() => {
-        axios.get('https://jsonplaceholder.typicode.com/albums')
-        .then(res => setData(res.data))
-        .catch(err=>console.log(err))
-    },[])
-    const move = (albumId) => {
-        navigation.navigate('Details',{albumId})
-        //alert(albumId)
+import { List } from 'react-native-paper';
 
-    }
+const Home = () => {
+  const [data, setData] = useState([])
+  const navigation = useNavigation()
+
+  useEffect(() => {
+    axios.get('https://jsonplaceholder.typicode.com/albums')
+      .then(res => setData(res.data))
+      .catch(err => console.log(err))
+  }, [])
+
+  const move = (albumId) => {
+    navigation.navigate('Details', { albumId })
+  }
+
   return (
     <SafeAreaView>
-    <ScrollView>
-      <View>
-        {data.map(album => <Text key={album.id} onPress={() => move(album.id)}>{album.title}</Text>)}
-      </View>
-    </ScrollView>
+      <ScrollView>
+        <List.Section>
+          {data.map(album => (
+            <List.Item
+              key={album.id}
+              title={album.title}
+              onPress={() => move(album.id)}
+              left={props => <List.Icon {...props} icon="album" />}
+            />
+          ))}
+        </List.Section>
+      </ScrollView>
     </SafeAreaView>
-    
   )
 }
 
-const styles = {
-    cont:{
-        flex:10
-    }
-}
 export default Home
