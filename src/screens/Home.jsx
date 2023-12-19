@@ -21,6 +21,7 @@ const Home = () => {
 
   return (
     <SafeAreaView>
+      <Text style={{ fontSize: 24, fontWeight: 'bold', margin: 16 }}>Albums</Text>
       <ScrollView>
         <List.Section>
           {data.map(album => (
@@ -29,6 +30,10 @@ const Home = () => {
               title={album.title}
               onPress={() => move(album.id)}
               left={props => <List.Icon {...props} icon="album" />}
+              titleStyle={{ fontSize: 18, fontWeight: 'bold' }}
+              descriptionStyle={{ fontSize: 14 }}
+              descriptionNumberOfLines={2}
+              style={{ marginBottom: 8, borderRadius: 8, backgroundColor: '#f0f0f0' }}
             />
           ))}
         </List.Section>
