@@ -1,4 +1,3 @@
-// src/reducers/rootReducer.ts
 import { combineReducers } from '@reduxjs/toolkit';
 import albumReducer from './albumReducer';
 
